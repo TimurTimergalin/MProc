@@ -1,0 +1,19 @@
+#prog
+#if lessThan(a, 3)
+    #if lessThan(a, 2)
+        print("small\n")
+    #else
+        print("medium\n")
+    #endif
+#else
+    print("large\n")
+
+    #loop greaterThanEq(a, 3)
+    print("making smaller!\n")
+    #after
+    a = sub(a, 1)
+    #endloop
+#endif
+
+print(a)
+#endprog

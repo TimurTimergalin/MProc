@@ -1,0 +1,8 @@
+#func func(a, b) -> c, d
+#return add(a, b), pow(b, a)
+#endfunc
+
+#func proc(a, e)
+global_result = add(sub(a, pow(e, e)), flip(a))
+#return true
+#endfunc

@@ -1,0 +1,12 @@
+#mlog
+set result 2
+sensor result block1 @copper  / comments are still allowed
+jump -1 always 0 0
+#endmlog
+
+#rawfunc raw_func(inp1, inp2) -> out1, out2, out3
+op add {out1} {inp1} {inp2}
+op sub {out2} {inp2} {inp1}
+op mul {out3} {inp1} {inp1}
+set @counter 48
+#endrawfunc

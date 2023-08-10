@@ -1,0 +1,16 @@
+#init
+a = 3
+b = 4
+#final c = 4
+#endinit
+
+#def
+message1
+#enddef
+
+#prog
+print(a)
+print(b)
+print(c)
+printflush(message1)
+#endprog
