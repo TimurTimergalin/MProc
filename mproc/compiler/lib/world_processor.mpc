@@ -1,0 +1,236 @@
+#namespace world_processor
+#enum getblock_categories
+floor
+ore
+block
+building
+#endenum
+
+#rawfunc gelblock(getblock_categories(get), x, y) -> result
+getblock {get} {result} {x} {y}
+#endrawfunc
+
+#enum setblock_categories
+floor
+ore
+block
+#endenum
+
+#rawfunc setblock(getblock_categories(set), x, y, to, team, rotation)
+setblock {set} {to} {x} {y} {team} {rotation}
+#endrawfunc
+
+#rawfunc spawn(spawn, x, y, team, rot) -> result
+spawn {spawn} {x} {y} {rot} {team} {result}
+#endrawfunc
+
+#enum statuses
+burning
+freezing
+unmoving
+wet
+melting
+sapped
+electrified
+spore-slowed
+tarred
+overdrive
+overclock
+boss
+shocked
+blasted
+#endenum
+
+#rawfunc status(apply, *, statuses(status), to, for)
+status false {status} {to} {for}
+#endrawfunc
+
+#rawfunc status(clear, *, statuses(status), from)
+status true {status} {from} 0
+#endrawfunc
+
+#rawfunc spawnwave(natural, x, y)
+spawnwave {x} {y} {natural}
+#endrawfunc
+
+#rawfunc setrule(currentWaveTime, *, value)
+setrule currentWaveTime {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(waveTimer, *, value)
+setrule waveTimer {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(waves, *, value)
+setrule waves {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(wave, *, value)
+setrule wave {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(waveSpacing, *, value)
+setrule waveSpacing {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(waveSending, *, value)
+setrule waveSending {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(attackMode, *, value)
+setrule attackMode {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(enemyCoreBuildRadius, *, value)
+setrule enemyCoreBuildRadius {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(dropZoneRadius, *, value)
+setrule dropZoneRadius {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(unitCap, *, value)
+setrule unitCap {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(lighting, *, value)
+setrule lighting {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(ambientLight, *, value)
+setrule ambientLight {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(solarMultiplier, *, value)
+setrule solarMultiplier {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(currentWaveTime, *, value)
+setrule currentWaveTime {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(mapArea, *, x, y, w, h)
+setrule currentWaveTime 0 {x} {y} {w} {h}
+#endrawfunc
+
+#rawfunc setrule(currentWaveTime, *, value)
+setrule currentWaveTime {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc setrule(buildSpeed, *, of, to)
+setrule buildSpeed 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(unitHealth, *, of, to)
+setrule unitHealth 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(unitBuildSpeed, *, of, to)
+setrule unitBuildSpeed 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(unitCost, *, of, to)
+setrule unitCost 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(unitDamage, *, of, to)
+setrule unitDamage 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(blockHealth, *, of, to)
+setrule blockHealth 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(blockDamage, *, of, to)
+setrule blockDamage 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(rtsMinWeight, *, of, to)
+setrule rtsMinWeight 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc setrule(rtsMinSquad, *, of, to)
+setrule rtsMinSquad 0 {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc message(notify, *)
+message notify 0
+#endrawfunc
+
+#rawfunc message(mission, *)
+message mission 0
+#endrawfunc
+
+#rawfunc message(announce, *, for)
+message announce {for}
+#endrawfunc
+
+#rawfunc message(toast, *, for)
+message toast {for}
+#endrawfunc
+
+#rawfunc cutscene(pan, *, x, y, speed)
+cutscene pan {x} {y} {speed} 0
+#endrawfunc
+
+#rawfunc cutscene(zoom, *, level)
+cutscene zoom {level} 0 0 0
+#endrawfunc
+
+#rawfunc cutscene(stop, *)
+cutscene stop 0 0 0 0
+#endrawfunc
+
+#rawfunc explosion(team, x, y, radius, damage, air, ground, pierce)
+explosion {tram} {x} {y} {radius} {damage} {air} {ground} {pierce}
+#endrawfunc
+
+#rawfunc setrate(ipt)
+setrate {ipt}
+#endrawfunc
+
+#rawfunc fetch(unit, *, team, n) -> result
+fetch unit {result} {team} {n} 0
+#endrawfunc
+
+#rawfunc fetch(player, *, team, n) -> result
+fetch player {result} {team} {n} 0
+#endrawfunc
+
+#rawfunc fetch(core, *, team, n) -> result
+fetch core {result} {team} {n} 0
+#endrawfunc
+
+#rawfunc fetch(build, *, team, n, block) -> result
+fetch build {result} {team} {n} {block}
+#endrawfunc
+
+#rawfunc fetch(unitCount, *, team) -> result
+fetch unitCount {result} {team} 0 0
+#endrawfunc
+
+#rawfunc fetch(playerCount, *, team) -> result
+fetch playerCount {result} {team} 0 0
+#endrawfunc
+
+#rawfunc fetch(coreCount, *, team) -> result
+fetch coreCount {result} {team} 0 0
+#endrawfunc
+
+#rawfunc fetch(buildCount, *, team, block) -> result
+fetch unitCount {result} {team} 0 {block}
+#endrawfunc
+
+#rawfunc getflag(flag) -> result
+getflag {result} {flag}
+#endrawfunc
+
+#rawfunc setflag(flag, value)
+setflag {flag} {value}
+#endrawfunc
+
+#rawfunc setprop(set, of, to)
+setprop {set} {of} {to}
+#endrawfunc
+
+#endnamespace

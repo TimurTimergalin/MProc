@@ -256,19 +256,6 @@ class NamedArgumentRightHandSideContext(RightHandSideContext):
 class ExpectedFlowOperatorContext(Context):
     """Context for reading names of flow operators"""
 
-    all_ = {
-        "func",
-        "endfunc"
-        "if",
-        "else",
-        "endif",
-        "loop",
-        "after",
-        "endloop",
-        "rawfunc",
-        "endrawfunc",
-    }
-
     self_sufficient_operators = {
         "break": Break,
         "continue": Continue,
@@ -279,7 +266,8 @@ class ExpectedFlowOperatorContext(Context):
     expression_required_operators = {
         "import": Import,
         "wait": Wait,
-        "final": Final
+        "final": Final,
+        "using": Using
     }
 
     expression_allowed_operators = {
@@ -300,7 +288,9 @@ class ExpectedFlowOperatorContext(Context):
         "endloop": Loop,
         "enddef": Def,
         "endinit": Init,
-        "endmlog": MLog
+        "endmlog": MLog,
+        "endenum": Enum,
+        "endnamespace": Namespace
     }
 
     block_with_expression_operators = {
@@ -314,7 +304,9 @@ class ExpectedFlowOperatorContext(Context):
     }
 
     function_operators = {
-        "func": Func
+        "func": Func,
+        "enum": Enum,
+        "namespace": Namespace
     }
 
     raw_func_operators = {

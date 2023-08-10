@@ -1,0 +1,426 @@
+#rawfunc read(from, at) -> result
+read {result} {from} {at}
+#endrawfunc
+
+#rawfunc write(input, to, at)
+write {input} {to} {at}
+#endrawfunc
+
+#rawfunc draw(clear, *, r, g, b)
+draw clear {r} {g} {b} 0 0 0
+#endrawfunc
+
+#rawfunc draw(color, *, r, g, b, a)
+draw color {r} {g} {b} {a} 0 0
+#endrawfunc
+
+#rawfunc draw(col, *, color)
+draw col {color} 0 0 0 0 0
+#endrawfunc
+
+#rawfunc draw(stroke, *, stroke)
+draw stroke {stroke} 0 0 0 0 0
+#endrawfunc
+
+#rawfunc draw(line, *, x, y, x2, y2)
+draw line {x} {y} {x2} {y2} 0 0
+#endrawfunc
+
+#rawfunc draw(rect, *, x, y, width, height)
+draw rect {x} {y} {width} {height} 0 0
+#endrawfunc
+
+#rawfunc draw(lineRect, *, x, y, width, height)
+draw rect {x} {y} {width} {height} 0 0
+#endrawfunc
+
+#rawfunc draw(poly, *, x, y, sides, radius, rotation)
+draw poly {x} {y} {sides} {radius} {rotation} 0
+#endrawfunc
+
+#rawfunc draw(linePoly, *, x, y, sides, radius, rotation)
+draw poly {x} {y} {sides} {radius} {rotation} 0
+#endrawfunc
+
+#rawfunc draw(triangle, *, x, y, x2, y2, x3, y3)
+draw triangle {x} {y} {x2} {y2} {x3} {y3}
+#endrawfunc
+
+#rawfunc draw(image, * x, y, size, rotation)
+draw image {x} {y} {size} {rotation} 0
+#endrawfunc
+
+#rawfunc print(input)
+print {input}
+#endrawfunc
+
+#rawfunc drawflush(display)
+drawflush {display}
+#endrawfunc
+
+#rawfunc printflush(message)
+printflush {message}
+#endrawfunc
+
+#rawfunc getlink(n) -> result
+getlink {result} {n}
+#endrawfunc
+
+#rawfunc control(enabled, *, of, to)
+control enabled {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc control(shoot, *, of, x, y, shoot)
+control shoot {of} {x} {y} {shoot} 0
+#endrawfunc
+
+#rawfunc control(shootp, *, of, unit, shoot)
+control shootp {of} {unit} {shoot} 0 0
+#endrawfunc
+
+#rawfunc control(config, *, of, to)
+control config {of} {to} 0 0 0
+#endrawfunc
+
+#rawfunc control(color, *, of, to)
+control color {of} {to} 0 0 0
+#endrawfunc
+
+#enum _builtin_conditions
+any
+enemy
+ally
+player
+attacker
+flying
+boss
+ground
+#endenum
+
+#enum _builtin_sort
+distance
+health
+shield
+armor
+maxHealth
+#endenum
+
+#rawfunc radar(from, order, _builtin_sort(sort)) -> result
+radar any any any {sort} {from} {order} {result}
+#endrawfunc
+
+#rawfunc radar(from, _builtin_conditions(condition1), order, _builtin_sort(sort)) -> result
+radar {condition1} any any {sort} {from} {order} {result}
+#endrawfunc
+
+#rawfunc radar(from, _builtin_conditions(condition1), _builtin_conditions(condition2), order,
+               _builtin_sort(sort)) -> result
+radar {condition1} {condition2} any {sort} {from} {order} {result}
+#endrawfunc
+
+#rawfunc radar(from, _builtin_conditions(condition1), _builtin_conditions(condition2), _builtin_conditions(condition3),
+               order, _builtin_sort(sort)) -> result
+radar {condition1} {condition2} {condition3} {sort} {from} {order} {result}
+#endrawfunc
+
+#rawfunc sensor(attribute, from) -> result
+sensor {result} {from} {attribute}
+#endrawfunc
+
+#enum _builtin_lookup_tables
+block
+unit
+item
+liquid
+#endenum
+
+#rawfunc lookup(_builtin_lookup_tables(category), n) -> result
+lookup block {result} {n}
+#endrawfunc
+
+#rawfunc packcolor(r, g, b, a) -> color
+packcolor {color} {r} {g} {b} {a}
+#endrawfunc
+
+#rawfunc ubind(unit)
+ubind {unit}
+#endrawfunc
+
+#rawfunc ucontrol(idle, *)
+ucontrol idle 0 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(stop, *)
+ucontrol stop 0 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(move, *, x, y)
+ucontrol move {x} {y} 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(approach, *, x, y, radius)
+ucontrol approach {x} {y} {radius} 0 0
+#endrawfunc
+
+#rawfunc ucontrol(pathfind, *, x, y)
+ucontrol pathfind {x} {y} 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(boost, *, enable)
+ucontrol boost {enable} 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(target, *, x, y, shoot)
+ucontrol target {x} {y} {shoot} 0 0
+#endrawfunc
+
+#rawfunc ucontrol(targetp, *, unit, shoot)
+ucontrol targetp {unit} {shoot} 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(itemDrop, *, to, amount)
+ucontrol itemDrop {to} {amount} 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(itemTake, *, from, item, amount)
+ucontrol itemTake {from} {item} {amount} 0 0
+#endrawfunc
+
+#rawfunc ucontrol(payDrop, *)
+ucontrol payDrop 0 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(payTake, *, takeUnits)
+ucontrol payTake {takeUnits} 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(payEnter, *)
+ucontrol payEnter 0 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(mine, *, x, y)
+ucontrol mine {x} {y} 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(flag, *, value)
+ucontrol flag {value} 0 0 0 0
+#endrawfunc
+
+#rawfunc ucontrol(build, *, x, y, block, rotation, config)
+ucontrol build {x} {y} {block} {rotation} {config}
+#endrawfunc
+
+#rawfunc ucontrol(within, *, x, y, radius) -> result
+ucontrol within {x} {y} {radius} {result} 0
+#endrawfunc
+
+#rawfunc ucontrol(unbind, *)
+ucontrol unbind 0 0 0 0 0
+#endrawfunc
+
+#rawfunc uradar(_builtin_sort(sort), order) -> result
+uradar any any any {sort} 0 {order} {result}
+#endrawfunc
+
+#rawfunc uradar(_builtin_conditions(condition1), _builtin_sort(sort), order) -> result
+uradar {condition1} any any {sort} 0 {order} {result}
+#endrawfunc
+
+#rawfunc uradar(_builtin_conditions(condition1), _builtin_conditions(condition2), _builtin_sort(sort), order) -> result
+uradar {condition1} {condition2} any {sort} 0 {order} {result}
+#endrawfunc
+#rawfunc uradar(_builtin_conditions(condition1), _builtin_conditions(condition2), _builtin_conditions(condition3),
+                _builtin_sort(sort), order) -> result
+uradar {condition1} {condition2} {condition3} {sort} 0 {order} {result}
+#endrawfunc
+
+#enum _builtin_building_groups
+core
+storage
+generator
+turret
+factory
+repair
+battery
+reactor
+#endenum
+
+#rawfunc ulocate(ore, *, material) -> x, y, found
+ulocate ore 0 0 {material} {x} {y} {found}
+#endrawfunc
+
+#rawfunc ulocate(building, *, _builtin_building_groups(group), enemy) -> x, y, found, building
+ulocate building {group} {enemy} 0 {x} {y} {found} {building}
+#endrawfunc
+
+#rawfunc ulocate(spawn, *) -> x, y, found, building
+ulocate spawn 0 0 0 {x} {y} {found} {building}
+#rawfunc
+
+#rawfunc ulocate(damaged, *) -> x, y, found, building
+ulocate damaged 0 0 0 {x} {y} {found} {building}
+endrawfunc
+
+/ operations
+
+#rawfunc flip(a) -> result
+op flip {result} {a} 0
+#endrawfunc
+
+#rawfunc abs(a) -> result
+op abs {result} {a} 0
+#endrawfunc
+
+#rawfunc log(a) -> result
+op log {result} {a} 0
+#endrawfunc
+
+#rawfunc log10(a) -> result
+op log10 {result} {a} 0
+#endrawfunc
+
+#rawfunc floor(a) -> result
+op floor {result} {a} 0
+#endrawfunc
+
+#rawfunc ceil(a) -> result
+op ceil {result} {a} 0
+#endrawfunc
+
+#rawfunc sqrt(a) -> result
+op sqrt {result} {a} 0
+#endrawfunc
+
+#rawfunc rand(a) -> result
+op rand {result} {a} 0
+#endrawfunc
+
+#rawfunc sin(a) -> result
+op sin {result} {a} 0
+#endrawfunc
+
+#rawfunc cos(a) -> result
+op cos {result} {a} 0
+#endrawfunc
+
+#rawfunc tan(a) -> result
+op tan {result} {a} 0
+#endrawfunc
+
+#rawfunc asin(a) -> result
+op asin {result} {a} 0
+#endrawfunc
+
+#rawfunc acos(a) -> result
+op acos {result} {a} 0
+#endrawfunc
+
+#rawfunc atan(a) -> result
+op atan {result} {a} 0
+#endrawfunc
+
+#rawfunc add(a, b) -> result
+op add {result} {a} {b}
+#endrawfunc
+
+#rawfunc sub(a, b) -> result
+op sub {result} {a} {b}
+#endrawfunc
+
+#rawfunc mul(a, b) -> result
+op mul {result} {a} {b}
+#endrawfunc
+
+#rawfunc div(a, b) -> result
+op div {result} {a} {b}
+#endrawfunc
+
+#rawfunc idiv(a, b) -> result
+op idiv {result} {a} {b}
+#endrawfunc
+
+#rawfunc mod(a, b) -> result
+op mod {result} {a} {b}
+#endrawfunc
+
+#rawfunc pow(a, b) -> result
+op pow {result} {a} {b}
+#endrawfunc
+
+#rawfunc equal(a, b) -> result
+op equal {result} {a} {b}
+#endrawfunc
+
+#rawfunc notEqual(a, b) -> result
+op notEqual {result} {a} {b}
+#endrawfunc
+
+#rawfunc land(a, b) -> result
+op land {result} {a} {b}
+#endrawfunc
+
+#rawfunc lessThan(a, b) -> result
+op lessThan {result} {a} {b}
+#endrawfunc
+
+#rawfunc lessThanEq(a, b) -> result
+op lessThanEq {result} {a} {b}
+#endrawfunc
+
+#rawfunc greaterThan(a, b) -> result
+op greaterThan {result} {a} {b}
+#endrawfunc
+
+#rawfunc greaterThanEq(a, b) -> result
+op greaterThanEq {result} {a} {b}
+#endrawfunc
+
+#rawfunc strictEqual(a, b) -> result
+op strictEqual {result} {a} {b}
+#endrawfunc
+
+#rawfunc shl(a, b) -> result
+op shl {result} {a} {b}
+#endrawfunc
+
+#rawfunc shr(a, b) -> result
+op shr {result} {a} {b}
+#endrawfunc
+
+#rawfunc or(a, b) -> result
+op or {result} {a} {b}
+#endrawfunc
+
+#rawfunc and(a, b) -> result
+op and {result} {a} {b}
+#endrawfunc
+
+#rawfunc xor(a, b) -> result
+op xor {result} {a} {b}
+#endrawfunc
+
+#rawfunc max(a, b) -> result
+op max {result} {a} {b}
+#endrawfunc
+
+#rawfunc min(a, b) -> result
+op min {result} {a} {b}
+#endrawfunc
+
+#rawfunc angle(a, b) -> result
+op angle {result} {a} {b}
+#endrawfunc
+
+#rawfunc angleDiff(a, b) -> result
+op angleDiff {result} {a} {b}
+#endrawfunc
+
+#rawfunc len(a, b) -> result
+op len {result} {a} {b}
+#endrawfunc
+
+#rawfunc noise(a, b) -> result
+op noise {result} {a} {b}
+#endrawfunc
+
+

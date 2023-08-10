@@ -169,3 +169,23 @@ class Final(SyntaxTreeNode):
     """Represents #final block"""
 
     expression: object
+
+
+@dataclass
+class Enum(SyntaxTreeNode):
+    """Represents #enum block"""
+    definition: object
+    body: list
+
+
+@dataclass
+class Namespace(SyntaxTreeNode):
+    """Represents #namespace block"""
+    definition: object
+    body: list
+
+
+@dataclass
+class Using(SyntaxTreeNode):
+    """Represents #using block"""
+    expression: object
