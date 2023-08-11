@@ -189,3 +189,16 @@ class Namespace(SyntaxTreeNode):
 class Using(SyntaxTreeNode):
     """Represents #using block"""
     expression: object
+
+
+@dataclass
+class Var(SyntaxTreeNode):
+    """Represents #var block"""
+    expression: object
+
+
+@dataclass
+class Macro(SyntaxTreeNode):
+    """Represents #macro block"""
+    definition: object
+    body: list
