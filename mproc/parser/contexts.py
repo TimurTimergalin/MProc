@@ -266,7 +266,6 @@ class ExpectedFlowOperatorContext(Context):
     expression_required_operators = {
         "import": Import,
         "wait": Wait,
-        "final": Final,
         "using": Using,
         "var": Var
     }
@@ -278,7 +277,8 @@ class ExpectedFlowOperatorContext(Context):
     simple_block_operators = {
         "def": Def,
         "init": Init,
-        "prog": Prog
+        "prog": Prog,
+        "link": Link
     }
 
     block_end_operators = {
@@ -291,8 +291,7 @@ class ExpectedFlowOperatorContext(Context):
         "endinit": Init,
         "endmlog": MLog,
         "endenum": Enum,
-        "endnamespace": Namespace,
-        "endmacro": Macro
+        "endlink": Link
     }
 
     block_with_expression_operators = {
@@ -308,8 +307,6 @@ class ExpectedFlowOperatorContext(Context):
     function_operators = {
         "func": Func,
         "enum": Enum,
-        "namespace": Namespace,
-        "macro": Macro
     }
 
     raw_func_operators = {

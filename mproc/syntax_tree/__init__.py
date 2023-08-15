@@ -46,6 +46,13 @@ class Def(SyntaxTreeNode):
 
 
 @dataclass
+class Link(SyntaxTreeNode):
+    """Represents #link block"""
+
+    body: list
+
+
+@dataclass
 class End(SyntaxTreeNode):
     """Represents #end statement"""
 
@@ -165,22 +172,8 @@ class MLog(SyntaxTreeNode):
 
 
 @dataclass
-class Final(SyntaxTreeNode):
-    """Represents #final block"""
-
-    expression: object
-
-
-@dataclass
 class Enum(SyntaxTreeNode):
     """Represents #enum block"""
-    definition: object
-    body: list
-
-
-@dataclass
-class Namespace(SyntaxTreeNode):
-    """Represents #namespace block"""
     definition: object
     body: list
 
@@ -195,10 +188,3 @@ class Using(SyntaxTreeNode):
 class Var(SyntaxTreeNode):
     """Represents #var block"""
     expression: object
-
-
-@dataclass
-class Macro(SyntaxTreeNode):
-    """Represents #macro block"""
-    definition: object
-    body: list

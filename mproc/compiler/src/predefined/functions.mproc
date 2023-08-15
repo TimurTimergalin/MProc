@@ -422,5 +422,3 @@ op len {result} {a} {b}
 #rawfunc noise(a, b) -> result
 op noise {result} {a} {b}
 #endrawfunc
-
-
