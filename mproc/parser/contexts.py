@@ -64,7 +64,7 @@ class Context(ABC):
 
 
 class RootContext(Context):
-    """Context that is always at the bottom of the stack"""
+    """Context that is always at the bottom of the stack, containing the resulting syntax tree"""
     delimiters = Context.delimiters
 
     def __init__(self, *args, **kwargs):
@@ -72,31 +72,35 @@ class RootContext(Context):
         self.root = Root(body=[], line=1, symbol=1)
 
     def handle_piece(self, piece, delimiter):
-        if delimiter == "" and not piece:
+        if delimiter == "" and not piece:  # if the file is ended, finish the program
             self.parser.stack.pop()
             return
+
+        # read the next statement
         self.parser.stack.append(selc := SkipEmptyLinesContext(self.parser))
         selc.handle_piece(piece, delimiter)
 
     def handle_child_content(self, content, delimiter=None):
         self.root.body.append(content)
         if delimiter != "":
+            # leave next piece for the next statement
             self.parser.stack.append(SkipEmptyLinesContext(self.parser))
         else:
-            self.parser.stack.pop()
+            self.parser.stack.pop()  # if the file is ended, finish the program
 
 
 class SkipEmptyLinesContext(Context):
-    """Context for parsing empty lines"""
+    """Context for parsing empty lines before parsing a new statement"""
 
     def handle_piece(self, piece, delimiter):
-        if piece or delimiter not in '\n':
+        if piece or delimiter not in '\n':  # if something is met
+            # create a new statement
             self.parser.stack.pop()
             self.parser.stack.append(nsc := NewStatementContext(self.parser))
             nsc.handle_piece(piece, delimiter)
 
         elif delimiter == "":
-            self.parser.stack.pop()
+            self.parser.stack.pop()  # root context will finish anyway
 
     def handle_child_content(self, content, delimiter=None):
         pass
@@ -144,8 +148,10 @@ class NewStatementContext(Context):
 
     def handle_child_content(self, content, delimiter=None):
         if delimiter is None:
+            # in this case child has completely finished parsing but the line has not ended yet
             self.skip_spaces(content)
         elif delimiter in '\n':  # \n or empty
+            # finish parsing
             self.save_statement(content, delimiter if not delimiter else None)
         elif delimiter == "=":
             self.create_assignment(content)
@@ -160,7 +166,7 @@ class NewStatementContext(Context):
 
 
 class SkipSpacesContext(Context):
-    """Context for skipping redundant spaces after finding a token"""
+    """Context for finding new non-whitespace content"""
 
     def __init__(self, token, endl_as_whitespace=False, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -175,7 +181,7 @@ class SkipSpacesContext(Context):
             # No flow operators are allowed after tokens
             raise self.parser.exception_end(MProcStructureError)
 
-        # If everything is fine we let the parent handle the busyness
+        # If everything is fine we let the parent handle the business
         self.parser.stack.pop()
         parent = self.parser.stack[-1]
         token = self.parser.parse_token(piece) if piece else None
@@ -227,7 +233,8 @@ class RightHandSideContext(Context):
         if delimiter is None:
             self.skip_spaces(content)
         elif delimiter in "\n":  # empty too
-            if delimiter == "\n" and not content:
+            if delimiter == "\n" and not content:  # if nothing is read yet, we search on the next line.
+                # this way multiple-line assignments are allowed
                 self.skip_spaces(None, True)
             else:
                 self.save_statement(content, delimiter)
@@ -248,6 +255,7 @@ class NamedArgumentRightHandSideContext(RightHandSideContext):
     """Context for parsing naming argument's right hand side, (i.e. func(a=3))"""
 
     def create_list(self, token):
+        # while inside function call, argument lists must be created and not the usual ones
         content = Assignment(lhs=self.lhs, rhs=token, line=self.lhs.line, symbol=self.lhs.symbol)
         self.parser.stack.pop()
         self.parser.stack.append(ArgumentListContext(content, self.parser))
@@ -323,6 +331,8 @@ class ExpectedFlowOperatorContext(Context):
         if delimiter not in self.whitespace_set | set("\n") | {""}:
             # There can be no other delimiters (so ',', #, =, (, ) are not allowed)
             self.wrong_delimiter(delimiter)
+
+        # replace with required flow operator context
 
         self.parser.stack.pop()
 
@@ -402,7 +412,7 @@ class ExpressionAllowedFlowOperatorContext(Context):
     def handle_piece(self, piece, delimiter):
         token = self.parser.parse_token(piece) if piece else None
 
-        if token is None and self.required:
+        if token is None and self.required:  # if expression is required, but absent
             raise self.parser.exception(MProcTokenExpectedError)
 
         if delimiter in "\n":  # empty too

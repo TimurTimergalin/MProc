@@ -146,7 +146,7 @@ class StringLiteral(SyntaxTreeNode):
 
 @dataclass
 class Token(SyntaxTreeNode):
-    """Represents a name of a variable/function/macros"""
+    """Represents a name of a variable/function/namespace/enum/etc"""
 
     name: str
 
