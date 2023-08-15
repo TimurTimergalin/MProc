@@ -48,7 +48,7 @@ def test3():
             Init(body=[
                 Assignment(lhs=Token(name="a"), rhs=NumericLiteral(value=3)),
                 Assignment(lhs=Token(name="b"), rhs=NumericLiteral(value=4)),
-                Final(expression=Assignment(lhs=Token(name="c"), rhs=NumericLiteral(value=4)))
+                Var(expression=Assignment(lhs=Token(name="c"), rhs=NumericLiteral(value=4)))
             ]),
             Def(body=[
                 Token(name="message1")

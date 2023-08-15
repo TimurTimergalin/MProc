@@ -1,7 +1,7 @@
 #init
 a = 3
 b = 4
-#final c = 4
+#var c = 4
 #endinit
 
 #def
